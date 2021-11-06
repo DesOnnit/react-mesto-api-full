@@ -1,0 +1,16 @@
+.sign-window__button {
+  width: 358px;
+  height: 50px;
+  margin: 200px auto 0;
+  padding: 0;
+  display: block;
+  background: white;
+  border-radius: 2px;
+  border: none;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+  color: black;
+  cursor: pointer;
+}

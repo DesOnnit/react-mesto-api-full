@@ -1,0 +1,4 @@
+.element__caption_like {
+    display: flex;
+    flex-direction: column;
+}

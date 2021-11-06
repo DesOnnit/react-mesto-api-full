@@ -1,0 +1,16 @@
+.popup__form{
+    display: flex;
+    flex-direction: column;
+    width: 430px;
+    min-height: 330px;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    background-color: white;
+}
+
+@media (max-width: 645px) {
+    .popup__form {
+        width: 100%;
+        min-height: 322px;
+    }
+}

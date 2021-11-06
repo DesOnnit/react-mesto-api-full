@@ -1,0 +1,17 @@
+.sign-window__input {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  width: 358px;
+  margin: 0 auto;
+  padding-bottom: 12px;
+  color: #cccccc;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  border: none;
+  border-bottom: 2px solid #cccccc;
+  background-color: black;
+  outline:none;
+}
