@@ -1,12 +1,14 @@
 class Api {
-  constructor({ baseUrl, headers }) {
+  constructor({ baseUrl, headers, credentials }) {
     this.baseUrl = baseUrl;
     this.headers = headers;
+    this.credentials = credentials;
   }
   _makeRequest(url, method, body) {
     const feathOptons = {
       method: method,
       headers: this.headers,
+      credentials: this.credentials
     };
     if (body) {
       feathOptons.body = JSON.stringify(body);
@@ -48,10 +50,10 @@ class Api {
 }
 
 const api = new Api({
-  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-25",
+  baseUrl: "http://api.onnit.student.nomoredomains.rocks",
+  credentials: 'include',
   headers: {
-    authorization: "6faffa29-8c7e-4cda-bdee-257e8f797ff2",
-    "Content-Type": "application/json",
+    "Content-Type": "application/json"
   },
 });
 
