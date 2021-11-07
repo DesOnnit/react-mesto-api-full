@@ -9,6 +9,7 @@ const auth = require('./middlewares/auth');
 const NotFound = require('./errors/NotFound');
 const { userValidation, loginValidation } = require('./middlewares/validation');
 const error = require('./middlewares/error');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const app = express();
 const { PORT = 3000 } = process.env;
@@ -16,13 +17,14 @@ const { PORT = 3000 } = process.env;
 app.use(bodyParser.json());
 app.use(helmet());
 mongoose.connect('mongodb://localhost:27017/mestodb');
-
+app.use(requestLogger);
 app.post('/signin', loginValidation, login);
 app.post('/signup', userValidation, createUser);
 app.use(auth, router);
 app.use('*', () => {
   throw new NotFound('Запрашиваемый ресурс не найден');
 });
+app.use(errorLogger);
 app.use(errors());
 app.use(error);
 app.listen(PORT, () => {
