@@ -1,25 +1,26 @@
 class Api {
-  constructor({ baseUrl, headers, credentials }) {
-    this.baseUrl = baseUrl;
-    this.headers = headers;
-    this.credentials = credentials;
+  constructor({ baseUrl, credentials, headers }) {
+    this._baseUrl = baseUrl;
+    this._credentials = credentials;
+    this._headers = headers;
   }
   _makeRequest(url, method, body) {
     const feathOptons = {
       method: method,
-      headers: this.headers,
-      credentials: this.credentials
+      headers: this._headers,
+      credentials: this._credentials
     };
     if (body) {
       feathOptons.body = JSON.stringify(body);
     }
-    return fetch(`${this.baseUrl}/${url}`, feathOptons).then((res) => {
+    return fetch(`${this._baseUrl}/${url}`, feathOptons).then((res) => {
       if (res.ok) {
         return res.json();
       }
       throw new Error(res.status);
     });
   }
+
   getUserInfo() {
     return this._makeRequest("users/me", "GET");
   }
@@ -50,7 +51,7 @@ class Api {
 }
 
 const api = new Api({
-  baseUrl: "http://api.onnit.student.nomoredomains.rocks",
+  baseUrl: "https://api.onnit.student.nomoredomains.rocks",
   credentials: 'include',
   headers: {
     "Content-Type": "application/json"
