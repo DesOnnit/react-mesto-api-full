@@ -6,7 +6,7 @@ const Forbidden = require('../errors/Forbidden');
 const getCards = (req, res, next) => {
   Card.find({})
     .then((card) => {
-      res.status(200).send(card);
+      res.status(200).send({ data: card });
     })
     .catch(next);
 };
@@ -16,7 +16,7 @@ const createCard = (req, res, next) => {
   const owner = req.user._id;
   Card.create({ name, link, owner })
     .then((card) => {
-      res.status(201).send(card);
+      res.status(201).send({ data: card });
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
@@ -27,15 +27,13 @@ const createCard = (req, res, next) => {
 
 const deleteCard = (req, res, next) => {
   const userId = req.user._id;
-  const { cardId } = req.params;
-
-  Card.findById(cardId)
+  Card.findById(req.params.id)
     .then((card) => {
       if (!card) {
         throw new NotFound('Такой карточки не существует');
       }
       if (card.owner.toString() === userId) {
-        Card.findByIdAndRemove(cardId)
+        Card.findByIdAndRemove(req.params.id)
           .then((cardData) => res.send(cardData));
       } else {
         throw new Forbidden('Недостаточно прав!');
@@ -46,7 +44,7 @@ const deleteCard = (req, res, next) => {
 
 const dislikeCard = (req, res, next) => {
   Card.findByIdAndUpdate(
-    req.params.cardId,
+    req.params.id,
     { $pull: { likes: req.user._id } },
     { new: true },
   )
@@ -54,14 +52,14 @@ const dislikeCard = (req, res, next) => {
       if (!like) {
         throw new NotFound('Такого пользователя не существует');
       }
-      res.status(200).send(like);
+      res.status(200).send({ data: like });
     })
     .catch(next);
 };
 
 const likeCard = (req, res, next) => {
   Card.findByIdAndUpdate(
-    req.params.cardId,
+    req.params.id,
     { $addToSet: { likes: req.user._id } },
     { new: true },
   )
@@ -69,7 +67,7 @@ const likeCard = (req, res, next) => {
       if (!like) {
         throw new NotFound('Такого пользователя не существует');
       }
-      res.status(201).send(like);
+      res.status(201).send({ data: like });
     })
     .catch(next);
 };

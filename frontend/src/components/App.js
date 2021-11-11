@@ -34,12 +34,12 @@ function App() {
   const [message, setMessage] = React.useState({ imgInfo: '', text: '' })
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    const isLiked = card.likes.some((i) => i === currentUser._id);
     api
       .changeLikeCardStatus(card._id, !isLiked)
       .then((newCard) => {
         setCards((state) =>
-          state.map((c) => (c._id === card._id ? newCard : c))
+          state.map((c) => (c._id === card._id ? newCard.data : c))
         );
       })
       .catch((err) => {
@@ -62,7 +62,7 @@ function App() {
     api
       .saveUserInfo(item)
       .then((res) => {
-        setCurrentUser(res);
+        setCurrentUser(res.data);
       })
       .then(() => {
         setEditProfilePopupOpen(false);
@@ -76,7 +76,7 @@ function App() {
     api
       .handleAvatarChange(item)
       .then((res) => {
-        setCurrentUser(res);
+        setCurrentUser(res.data);
       })
       .then(() => {
         setEditAvatarPopupOpen(false);
@@ -90,7 +90,7 @@ function App() {
     api
       .getNewCard(item)
       .then((newCard) => {
-        setCards([newCard, ...cards]);
+        setCards([newCard.data, ...cards]);
       })
       .then(() => {
         setAddPlacePopupOpen(false);
@@ -104,7 +104,7 @@ function App() {
     api
       .getUserInfo()
       .then((res) => {
-        setCurrentUser(res);
+        setCurrentUser(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -115,7 +115,7 @@ function App() {
     api
       .getInitialCards()
       .then((res) => {
-        setCards(res);
+        setCards(res.data);
       })
       .catch((err) => {
         console.log(err);

@@ -5,13 +5,13 @@ const regex = /^https?:\/\/(www.)?[a-zA-Z0-9-.]+\.[a-zA-Z]{2,}([a-zA-Z0-9-._~:/?
 
 const idUserValidation = celebrate({
   params: Joi.object().keys({
-    userId: Joi.string().length(24).hex(),
+    id: Joi.string().length(24).hex(),
   }),
 });
 
 const idCardValidation = celebrate({
   params: Joi.object().keys({
-    cardId: Joi.string().length(24).hex(),
+    id: Joi.string().length(24).hex(),
   }),
 });
 

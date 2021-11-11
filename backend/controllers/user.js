@@ -17,8 +17,7 @@ const getUsers = (req, res, next) => {
 };
 
 const getUser = (req, res, next) => {
-  const { userId } = req.params;
-  User.findById(userId)
+  User.findById(req.params.id)
     .then((user) => {
       if (!user) {
         throw new NotFound('Такого пользователя не существует');
@@ -48,10 +47,11 @@ const createUser = (req, res, next) => {
       });
     })
     .catch((err) => {
-      if (err.name === 'MongoServerError' && err.code === 11000) {
+      if ( err.code === 11000) {
         throw new Conflict('Пользователь с таким email уже существует');
-      } else { next(err); }
-    });
+      }
+    })
+    .catch(next);
 };
 
 const updateProfile = (req, res, next) => {
