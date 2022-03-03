@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://api.onnit.student.nomoredomains.rocks';
+export const BASE_URL = 'https://localhost:3001';
 const checkResponse = response =>
   response.ok ? response.json() : Promise.reject(response.status);
 
