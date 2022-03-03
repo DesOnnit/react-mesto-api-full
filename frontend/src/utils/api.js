@@ -51,7 +51,7 @@ class Api {
 }
 
 const api = new Api({
-  baseUrl: "https://api.onnit.student.nomoredomains.rocks",
+  baseUrl: "https://localhost:3001",
   credentials: 'include',
   headers: {
     "Content-Type": "application/json"
